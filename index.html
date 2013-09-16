@@ -30,6 +30,19 @@
 		  fill: orange;
 		    }
 		
+		.g-labels{
+			display:none;
+			text-anchor:end;
+		}
+		
+		.g-minor-highlight-label{
+			fill: black;
+			display: block;
+			font-size: 10px;
+			font-family: arial;
+			font-weight: normal;
+		}
+		
 		.g-ESPN-label {
 			font-size: 17px;
 			font-family:arial;
@@ -104,6 +117,16 @@
 					    .attr("x", 530)
 					    .attr("y", 30)
 						  .text("ESPN");
+						
+					var labels = svg.selectAll(".g-labels")
+							.data(prices)
+							.enter().append("text")
+							.attr("x", function(d,i) { return 4*i})
+							.attr("y", function(d) { return height - y(d.X2013) - 10 })
+							.text(function(d) { return d.Network + " ($"+ d.X2013 +")"; })
+							.attr("class", "g-labels")
+							.classed("g-minor-highlight-label", function(d) { return networks.indexOf(d.Network) >= 0; });
+						
 						
 						// svg.append("text")							    
 						// 				.attr("class", "g-C-SPAN-label")
